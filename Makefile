@@ -10,5 +10,11 @@ build: setup
 install: build
 	./Setup install
 
+tests: install
+	ghc test/*.hs
+
+test: tests
+	./test/Assert
+
 clean: 
 	git clean -Xfd

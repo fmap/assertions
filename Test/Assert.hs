@@ -14,9 +14,3 @@ assert (str, prop) = setSGR [SetColor Foreground Dull col]
 runAssertions :: [Assertion] -> IO ()
 runAssertions as = sequence (map assert as)
                 >> if (and . map snd $ as) then exitSuccess else exitFailure
-
-main :: IO ()
-main = runAssertions $
-  [ ("A passing test!", True || False)
-  , ("A failing test!", True && False)
-  ]
