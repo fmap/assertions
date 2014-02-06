@@ -1,5 +1,5 @@
 name:                assert
-version:             0.1.0.0
+version:             0.1.0.1
 synopsis:            A simple testing framework.
 license:             MIT
 license-file:        LICENSE
