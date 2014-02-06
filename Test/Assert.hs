@@ -2,15 +2,28 @@ module Test.Assert (runAssertions) where
 
 import System.Console.ANSI (setSGR, SGR(..), ConsoleLayer(..), ColorIntensity(..), Color(..))
 import System.Exit (exitSuccess, exitFailure)
+import Data.Monoid (Monoid(..))
 
-type Assertion = (String, Bool)
+data Assertion = Assertion [(Color, String)] Double Double
+
+instance Monoid Assertion where
+  (Assertion a0 b0 c0) `mappend` (Assertion a1 b1 c1) = Assertion (a0++a1) (b0+b1) (c0+c1)
+  mempty = Assertion [] 0 0
+
+toAssertion :: (String, Bool) -> Assertion
+toAssertion (s,b) = Assertion [(c,s)] p 1
+  where (c, p) = if b then (Green,1) else (Red,0)
+
+putOut :: (Color, String) -> IO ()
+putOut (c,s) = setSGR [SetColor Foreground Dull c]
+            >> putStrLn s
+            >> setSGR []
 
 assert :: Assertion -> IO ()
-assert (str, prop) = setSGR [SetColor Foreground Dull col]
-                  >> putStrLn str 
-                  >> setSGR []
-  where col = if prop then Green else Red
+assert (Assertion out pass total) = do
+  mapM_ putOut out
+  putStrLn . concat $ [show $ 100*pass/total, "% of tests passed."]
+  if pass == total then exitSuccess else exitFailure
 
-runAssertions :: [Assertion] -> IO ()
-runAssertions as = sequence (map assert as)
-                >> if (and . map snd $ as) then exitSuccess else exitFailure
+runAssertions :: [(String, Bool)] -> IO ()
+runAssertions = assert . mconcat . map toAssertion
