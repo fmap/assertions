@@ -19,10 +19,13 @@ putOut (c,s) = setSGR [SetColor Foreground Dull c]
             >> putStrLn s
             >> setSGR []
 
+showRatio :: Double -> Double -> String
+showRatio a b = take 4 . show $ 100*a/b
+
 assert :: Assertion -> IO ()
 assert (Assertion out pass total) = do
   mapM_ putOut out
-  putStrLn . concat $ [show $ 100*pass/total, "% of tests passed."]
+  putStrLn . concat $ [showRatio pass total, "% of tests passed."]
   if pass == total then exitSuccess else exitFailure
 
 runAssertions :: [(String, Bool)] -> IO ()
