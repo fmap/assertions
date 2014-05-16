@@ -1,4 +1,4 @@
-name:                assert
+name:                assertions
 version:             0.1.0.3
 synopsis:            A simple testing framework.
 license:             MIT
@@ -16,13 +16,13 @@ cabal-version:       >=1.10
 library
   hs-source-dirs:      src 
   exposed-modules:     Test.Assert
-  build-depends:       base >=4.6 && <4.7, ansi-terminal
+  build-depends:       base >=4.6 && <4.7, containers, ansi-terminal
   default-language:    Haskell2010
 
 test-suite assert-tests
   type:                exitcode-stdio-1.0
   main-is:             Assert.hs
   hs-source-dirs:      test
-  build-depends:       base, assert, interpolate, process
+  build-depends:       base, assertions, interpolate, process
   default-language:    Haskell2010
-  other-modules:       Paths_assert 
+  other-modules:       Paths_assertions

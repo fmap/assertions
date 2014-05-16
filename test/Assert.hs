@@ -7,7 +7,7 @@ import Data.String.Interpolate (i)
 import System.Cmd (system)
 import System.Exit (ExitCode(..))
 import Test.Assert (runAssertions)
-import Paths_assert (getDataFileName)
+import Paths_assertions (getDataFileName)
 
 is0 :: ExitCode -> Bool
 is0 = (== ExitSuccess)

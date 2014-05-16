@@ -2,5 +2,5 @@
 , src ? ./.
 }:
 {
-  build = pkgs.haskellPackages.buildLocalCabal src "assert";
+  build = pkgs.haskellPackages.buildLocalCabal src "assertions";
 }
