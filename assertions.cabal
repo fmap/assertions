@@ -1,5 +1,5 @@
 name:                assertions
-version:             0.1.0.3
+version:             0.1.0.4
 synopsis:            A simple testing framework.
 license:             MIT
 license-file:        LICENSE
@@ -16,7 +16,7 @@ cabal-version:       >=1.10
 library
   hs-source-dirs:      src 
   exposed-modules:     Test.Assert
-  build-depends:       base >=4.6 && <4.7, containers, ansi-terminal
+  build-depends:       base == 4.* , containers, ansi-terminal
   default-language:    Haskell2010
 
 test-suite assert-tests
